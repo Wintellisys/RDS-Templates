@@ -50,7 +50,7 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpGet("GetActivityDetails")]
         public async Task<List<ConnectionActivity>> GetActivityDetails(string tenantGroupName,string tenant,string activityId)
         {
-            _logger.LogInformation($"Make api call to get connection  activity details of activityId{activityId}");
+            _logger.LogInformation($"Make api call to get connection  activity details of activityId{activityId.Replace(Environment.NewLine, "")}");
             string token = Request.Headers["Authorization"];
             return await _diagnozeService.GetActivityHostDetails(token,tenantGroupName,tenant,activityId).ConfigureAwait(false);
         }
