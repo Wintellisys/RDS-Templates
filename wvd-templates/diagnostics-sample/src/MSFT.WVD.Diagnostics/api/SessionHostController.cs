@@ -32,7 +32,8 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpPost("SendMessage")]
         public async Task<string> SendMessage(SendMessageQuery sendMessageQuery)
         {
-            _logger.LogInformation($"Make api call  get send message to user {sendMessageQuery.userPrincipalName}");
+            var sanitizedUserPrincipalName = sendMessageQuery.userPrincipalName.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            _logger.LogInformation($"Make api call  get send message to user {sanitizedUserPrincipalName}");
             string token = Request.Headers["Authorization"];
             return await _userSessionService.SendMessage(token, sendMessageQuery).ConfigureAwait(false);
         }
