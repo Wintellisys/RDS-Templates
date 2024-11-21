@@ -143,8 +143,9 @@ namespace MSFT.WVD.Diagnostics.Common.Services
         }
         public async Task<VMPerformance> GetSessionHostPerformance(string refreshToken, string hostName, XmlDocument xmlDocument)
         {
-            _logger.LogInformation($" Enter into GetSessionHostPerformance() to get log data for {hostName} ");
-            return await ExecuteLogAnalyticsQuery(refreshToken, hostName, xmlDocument);
+            var sanitizedHostName = hostName.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            _logger.LogInformation($" Enter into GetSessionHostPerformance() to get log data for {sanitizedHostName} ");
+            return await ExecuteLogAnalyticsQuery(refreshToken, sanitizedHostName, xmlDocument);
             //return new VMPerformance()
             //{
             //    CurrentStateCounters = await ExecuteLogAnalyticsQuery(refreshToken, hostName, xmlDocument)
