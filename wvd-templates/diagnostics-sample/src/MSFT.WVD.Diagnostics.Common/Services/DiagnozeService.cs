@@ -255,7 +255,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
 
         public async Task<List<ConnectionActivity>> GetActivityHostDetails(string accessToken, string tenantGroupName, string tenant, string activityId)
         {
-            _logger.LogInformation($"Service call to get activity details based on activityId {activityId}");
+            var sanitizedActivityId = activityId.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            _logger.LogInformation($"Service call to get activity details based on activityId {sanitizedActivityId}");
             // Here we will add user to the key
             var key = new Tuple<string, string, string, string>(nameof(GetActivityHostDetails), tenantGroupName, tenant, activityId);
 
@@ -297,7 +298,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
             }
             else
             {
-                _logger.LogError($"Service call to get activity details based on activityId {activityId} is failed. Error : {result} ");
+                var sanitizedActivityId = activityId.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                _logger.LogError($"Service call to get activity details based on activityId {sanitizedActivityId} is failed. Error : {result} ");
 
                 return new List<ConnectionActivity>() {
                         new ConnectionActivity()
