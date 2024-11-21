@@ -85,7 +85,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
         }
         public async Task<string> SendMessage(string accessToken, SendMessageQuery sendMessageQuery)
         {
-            _logger.LogInformation($"Enter into service call to send message to {sendMessageQuery.userPrincipalName}");
+            var sanitizedUserPrincipalName = sendMessageQuery.userPrincipalName.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            _logger.LogInformation($"Enter into service call to send message to {sanitizedUserPrincipalName}");
 
             var key = sendMessageQuery;
             var result = await _cache.GetOrCreateAsync(key, async entry =>
