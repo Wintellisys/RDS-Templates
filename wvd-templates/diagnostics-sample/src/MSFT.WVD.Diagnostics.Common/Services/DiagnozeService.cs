@@ -41,6 +41,9 @@ namespace MSFT.WVD.Diagnostics.Common.Services
 
         public async Task<List<ConnectionActivity>> GetConnectionActivities(string accessToken, string upn, string tenantGroupName, string tenant, string startDatetime, string endDatetime, string outcome)
         {
+            upn = SanitizeInput(upn);
+            tenantGroupName = SanitizeInput(tenantGroupName);
+            tenant = SanitizeInput(tenant);
             _logger.LogInformation($"Service call to get connection activities of user {upn} of Tenant {tenant} within tenant group {tenantGroupName} ");
 
             // Here we will add user to the key
@@ -330,6 +333,10 @@ namespace MSFT.WVD.Diagnostics.Common.Services
                 _logger.LogInformation($"Received response from ActivityId:{activityId} Status:{response.StatusCode}");
                 return response;
             }
+        }
+        private string SanitizeInput(string input)
+        {
+            return input?.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
         }
     }
 }
