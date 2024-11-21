@@ -25,7 +25,7 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpGet("GetConnectionActivities")]
         public async Task<List<ConnectionActivity>> GetConnectionActivities(string upn, string tenantGroupName, string tenant, string startDate, string endDate, string outcome = null)
         {
-            _logger.LogInformation($"Make api call to get connection activities of user {upn} within tenant {tenant} within tenant group {tenantGroupName}");
+            _logger.LogInformation($"Make api call to get connection activities of user {upn.Replace(Environment.NewLine, "")} within tenant {tenant} within tenant group {tenantGroupName}");
             string token = Request.Headers["Authorization"];
             return await _diagnozeService.GetConnectionActivities(token, upn, tenantGroupName, tenant, startDate, endDate, outcome).ConfigureAwait(false);
         }
@@ -34,7 +34,7 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpGet("GetManagementActivities")]
         public async Task<List<ManagementActivity>> GetManagementActivities(string upn, string tenantGroupName, string tenant, string startDate, string endDate, string outcome = null)
         {
-            _logger.LogInformation($"Make api call to get management activities of user {upn} within tenant {tenant} within tenant group {tenantGroupName}");
+            _logger.LogInformation($"Make api call to get management activities of user {upn.Replace(Environment.NewLine, "")} within tenant {tenant} within tenant group {tenantGroupName}");
             string token = Request.Headers["Authorization"];
             return await _diagnozeService.GetManagementActivities(token, upn, tenantGroupName, tenant, startDate, endDate, outcome).ConfigureAwait(false);
         }
@@ -42,7 +42,7 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpGet("GetFeedActivities")]
         public async Task<List<FeedActivity>> GetFeedActivities(string upn, string tenantGroupName, string tenant, string startDate, string endDate, string outcome = null)
         {
-            _logger.LogInformation($"Make api call to get feed activities of user {upn} within tenant {tenant} within tenant group {tenantGroupName}");
+            _logger.LogInformation($"Make api call to get feed activities of user {upn.Replace(Environment.NewLine, "")} within tenant {tenant} within tenant group {tenantGroupName}");
             string token = Request.Headers["Authorization"];
             return await _diagnozeService.GetFeedActivities(token, upn, tenantGroupName, tenant, startDate, endDate, outcome).ConfigureAwait(false);
         }
@@ -50,7 +50,7 @@ namespace MSFT.WVD.Diagnostics.api
         [HttpGet("GetActivityDetails")]
         public async Task<List<ConnectionActivity>> GetActivityDetails(string tenantGroupName,string tenant,string activityId)
         {
-            _logger.LogInformation($"Make api call to get connection  activity details of activityId{activityId}");
+            _logger.LogInformation($"Make api call to get connection activity details of activityId{activityId.Replace(Environment.NewLine, "")}");
             string token = Request.Headers["Authorization"];
             return await _diagnozeService.GetActivityHostDetails(token,tenantGroupName,tenant,activityId).ConfigureAwait(false);
         }
