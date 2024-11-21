@@ -170,7 +170,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
             }
             else
             {
-                _logger.LogError($"Service call to get management activities of user {upn} of Tenant {tenant} within tenant group {tenantGroupName} is failed. Error : {result} ");
+                var sanitizedUpn = upn.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                _logger.LogError($"Service call to get management activities of user {sanitizedUpn} of Tenant {tenant} within tenant group {tenantGroupName} is failed. Error : {result} ");
 
                 return new List<ManagementActivity>() {
                         new ManagementActivity()
@@ -187,7 +188,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
 
         public async Task<List<FeedActivity>> GetFeedActivities(string accessToken, string upn, string tenantGroupName, string tenant, string startDatetime, string endDatetime, string outcome)
         {
-            _logger.LogInformation($"Service call to get feed activities of user {upn} of Tenant {tenant} within tenant group {tenantGroupName} ");
+            var sanitizedUpn = upn.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+            _logger.LogInformation($"Service call to get feed activities of user {sanitizedUpn} of Tenant {tenant} within tenant group {tenantGroupName} ");
 
             // Here we will add user to the key
             var key = new Tuple<string, string, string, string, string, string, string>(nameof(GetFeedActivities), upn, tenantGroupName, tenant, startDatetime, endDatetime, outcome);
@@ -238,7 +240,8 @@ namespace MSFT.WVD.Diagnostics.Common.Services
             }
             else
             {
-                _logger.LogError($"Service call to get feed activities of user {upn} of Tenant {tenant} within tenant group {tenantGroupName} is  failed. Error : {result} ");
+                var sanitizedUpn = upn.Replace(Environment.NewLine, "").Replace("\n", "").Replace("\r", "");
+                _logger.LogError($"Service call to get feed activities of user {sanitizedUpn} of Tenant {tenant} within tenant group {tenantGroupName} is  failed. Error : {result} ");
 
                 return new List<FeedActivity>() {
                         new FeedActivity()
